@@ -1,0 +1,83 @@
+{
+  "name": "ExamSession",
+  "type": "object",
+  "properties": {
+    "exam_id": {
+      "type": "string",
+      "description": "ID of the exam"
+    },
+    "student_email": {
+      "type": "string",
+      "description": "Email of the student"
+    },
+    "student_name": {
+      "type": "string",
+      "description": "Name of the student"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_progress",
+        "submitted",
+        "timed_out",
+        "flagged"
+      ],
+      "default": "in_progress",
+      "description": "Current status of the session"
+    },
+    "answers": {
+      "type": "array",
+      "description": "Student's answers",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "time_spent_seconds": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the student started the exam"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the student submitted"
+    },
+    "time_remaining_seconds": {
+      "type": "number",
+      "description": "Seconds remaining (for autosave/resume)"
+    },
+    "focus_loss_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of times student lost focus"
+    },
+    "score": {
+      "type": "number",
+      "description": "Auto-graded score for MCQs"
+    },
+    "percentage": {
+      "type": "number",
+      "description": "Score percentage"
+    },
+    "cheating_risk_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Calculated cheating risk (0-100)"
+    }
+  },
+  "required": [
+    "exam_id",
+    "student_email"
+  ]
+}
