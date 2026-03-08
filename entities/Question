@@ -1,0 +1,55 @@
+{
+  "name": "Question",
+  "type": "object",
+  "properties": {
+    "exam_id": {
+      "type": "string",
+      "description": "ID of the exam this question belongs to"
+    },
+    "question_text": {
+      "type": "string",
+      "description": "The question text"
+    },
+    "question_type": {
+      "type": "string",
+      "enum": [
+        "mcq",
+        "theory"
+      ],
+      "description": "Type of question"
+    },
+    "options": {
+      "type": "array",
+      "description": "Options for MCQ questions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "correct_answer": {
+      "type": "string",
+      "description": "Correct answer label for MCQ or model answer for theory"
+    },
+    "marks": {
+      "type": "number",
+      "description": "Marks allocated to this question"
+    },
+    "order_index": {
+      "type": "number",
+      "description": "Order of the question in the exam"
+    }
+  },
+  "required": [
+    "exam_id",
+    "question_text",
+    "question_type",
+    "marks"
+  ]
+}
