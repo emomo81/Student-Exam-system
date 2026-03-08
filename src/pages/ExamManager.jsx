@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { toast } from 'sonner';
 import {
     Plus, FileText, Clock, Hash, Pencil, Trash2, Eye, Play, ChevronDown, ChevronUp, Sparkles
 } from "lucide-react";
@@ -57,7 +58,9 @@ export default function ExamManager() {
             queryClient.invalidateQueries({ queryKey: ["exams"] });
             setShowCreateExam(false);
             resetForm();
+            toast.success("Exam created successfully");
         },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to create exam"),
     });
 
     /** @type {import('@tanstack/react-query').UseMutationResult<any, any, any, any>} */
@@ -68,13 +71,19 @@ export default function ExamManager() {
             setEditingExam(null);
             setShowCreateExam(false);
             resetForm();
+            toast.success("Exam updated");
         },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to update exam"),
     });
 
     /** @type {import('@tanstack/react-query').UseMutationResult<any, any, any, any>} */
     const deleteExam = useMutation({
         mutationFn: (id) => api.delete(`/exams/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["exams"] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["exams"] });
+            toast.success("Exam deleted");
+        },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to delete exam"),
     });
 
     /** @type {import('@tanstack/react-query').UseMutationResult<any, any, any, any>} */
@@ -84,7 +93,9 @@ export default function ExamManager() {
             queryClient.invalidateQueries({ queryKey: ["questions"] });
             setShowQuestionForm(false);
             setEditingQuestion(null);
+            toast.success("Question added");
         },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to add question"),
     });
 
     /** @type {import('@tanstack/react-query').UseMutationResult<any, any, any, any>} */
@@ -94,13 +105,19 @@ export default function ExamManager() {
             queryClient.invalidateQueries({ queryKey: ["questions"] });
             setShowQuestionForm(false);
             setEditingQuestion(null);
+            toast.success("Question updated");
         },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to update question"),
     });
 
     /** @type {import('@tanstack/react-query').UseMutationResult<any, any, any, any>} */
     const deleteQuestion = useMutation({
         mutationFn: (id) => api.delete(`/questions/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["questions"] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["questions"] });
+            toast.success("Question deleted");
+        },
+        onError: (error) => toast.error(error.response?.data?.message || "Failed to delete question"),
     });
 
     const resetForm = () => {
