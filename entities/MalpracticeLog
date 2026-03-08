@@ -1,0 +1,50 @@
+{
+  "name": "MalpracticeLog",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "ID of the exam session"
+    },
+    "exam_id": {
+      "type": "string",
+      "description": "ID of the exam"
+    },
+    "student_email": {
+      "type": "string",
+      "description": "Email of the student"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "focus_loss",
+        "shortcut_attempt",
+        "right_click",
+        "copy_attempt",
+        "paste_attempt",
+        "tab_switch",
+        "window_resize"
+      ],
+      "description": "Type of malpractice event"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the event occurred"
+    },
+    "details": {
+      "type": "string",
+      "description": "Additional details about the event"
+    },
+    "question_index": {
+      "type": "number",
+      "description": "Which question was being viewed when the event occurred"
+    }
+  },
+  "required": [
+    "session_id",
+    "exam_id",
+    "student_email",
+    "event_type"
+  ]
+}
