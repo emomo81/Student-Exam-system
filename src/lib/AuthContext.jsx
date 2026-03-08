@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(false);
 
             if (error.response?.status === 401 || error.response?.status === 403) {
+                localStorage.removeItem('token');
                 setAuthError({
                     type: 'auth_required',
                     message: 'Authentication required'
