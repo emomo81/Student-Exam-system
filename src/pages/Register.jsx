@@ -12,6 +12,7 @@ export default function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('student');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { login } = useAuth(); // or handle localStorage manually
@@ -20,7 +21,7 @@ export default function Register() {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await api.post('/auth/register', { name, email, password });
+            const res = await api.post('/auth/register', { name, email, password, role });
             // Upon successful register, Token is returned. Store it and redirect.
             localStorage.setItem('token', res.data.token);
             // Wait for AuthContext to pick it up or force a hard redirect so AuthContext initializes correctly
@@ -48,6 +49,19 @@ export default function Register() {
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input id="email" type="email" placeholder="john@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="role">Account Type</Label>
+                            <select
+                                id="role"
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="admin">Administrator</option>
+                            </select>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">Password</Label>
