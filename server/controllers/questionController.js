@@ -28,7 +28,8 @@ export const createQuestion = async (req, res) => {
         }
         res.status(201).json(question);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error("DEBUG: Detailed Question Creation Error:", error);
+        res.status(400).json({ message: error.message, details: error.errors });
     }
 };
 

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Trash2, Save } from "lucide-react";
+import { toast } from "sonner";
 
 const DEFAULT_OPTIONS = [
   { label: "A", text: "" },
@@ -37,6 +38,29 @@ export default function QuestionForm({ onSave, onCancel, initialData }) {
   const removeOption = (index) => {
     if (data.options.length <= 2) return;
     setData({ ...data, options: data.options.filter((_, i) => i !== index) });
+  };
+
+  const handleSaveWrapper = () => {
+    if (!data.question_text.trim()) {
+      return toast.error("Question text is required.");
+    }
+    if (data.question_type === "mcq") {
+      if (data.options.some((opt) => !opt.text.trim())) {
+        return toast.error("All multiple choice options must have text.");
+      }
+      if (!data.correct_answer) {
+        return toast.error("Please select a correct answer.");
+      }
+    } else if (data.question_type === "theory") {
+      if (!data.correct_answer.trim()) {
+        return toast.error("A model answer is required.");
+      }
+    }
+    if (!data.marks || data.marks < 1) {
+      return toast.error("Marks must be at least 1.");
+    }
+
+    onSave(data);
   };
 
   return (
@@ -132,7 +156,7 @@ export default function QuestionForm({ onSave, onCancel, initialData }) {
 
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="ghost" onClick={onCancel} className="text-slate-400 hover:text-white">Cancel</Button>
-          <Button onClick={() => onSave(data)} className="bg-blue-600 hover:bg-blue-700 gap-1">
+          <Button onClick={handleSaveWrapper} className="bg-blue-600 hover:bg-blue-700 gap-1">
             <Save className="w-4 h-4" /> Save Question
           </Button>
         </div>
