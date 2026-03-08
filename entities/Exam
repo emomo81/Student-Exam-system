@@ -1,0 +1,60 @@
+{
+  "name": "Exam",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the exam"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description or instructions for the exam"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Subject area"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Duration of the exam in minutes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "active",
+        "completed"
+      ],
+      "default": "draft",
+      "description": "Current status of the exam"
+    },
+    "randomize_questions": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to randomize question order"
+    },
+    "total_marks": {
+      "type": "number",
+      "description": "Total marks for the exam"
+    },
+    "passing_percentage": {
+      "type": "number",
+      "default": 40,
+      "description": "Minimum percentage to pass"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the exam is scheduled"
+    },
+    "teacher_email": {
+      "type": "string",
+      "description": "Email of the teacher who created the exam"
+    }
+  },
+  "required": [
+    "title",
+    "duration_minutes"
+  ]
+}
