@@ -2,9 +2,12 @@ import mongoose from 'mongoose';
 
 const questionSchema = new mongoose.Schema({
     exam_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Exam', required: true },
-    text: { type: String, required: true },
-    type: { type: String, enum: ['multiple_choice', 'true_false', 'short_answer'], default: 'multiple_choice' },
-    options: [{ type: String }],
+    question_text: { type: String, required: true },
+    question_type: { type: String, enum: ['mcq', 'theory'], default: 'mcq' },
+    options: [{
+        label: { type: String },
+        text: { type: String }
+    }],
     correct_answer: { type: String, required: true },
     marks: { type: Number, required: true, default: 1 },
     order_index: { type: Number, default: 0 }
