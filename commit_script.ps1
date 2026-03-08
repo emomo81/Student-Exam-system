@@ -9,6 +9,6 @@ foreach ($line in $files) {
 
     Write-Host "Processing: $file"
     git add "$file"
-    git commit -m "refactor: drop base44 and add mongodb prep for $file"
+    git commit -m "feat: setup Express and MongoDB for $file"
     git push
 }
