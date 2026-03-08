@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
-    FileText, Users, Shield, BarChart3, Plus, ArrowRight, GraduationCap, AlertTriangle
+    FileText, Users, Shield, BarChart3, Plus, ArrowRight, GraduationCap, AlertTriangle, UserPlus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -115,6 +115,20 @@ export default function Dashboard() {
                                         <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-blue-400 transition-colors" />
                                     </div>
                                 </Link>
+                                {role === 'admin' && (
+                                    <Link to="/register" className="block">
+                                        <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition-colors group cursor-pointer">
+                                            <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                                                <UserPlus className="w-5 h-5 text-orange-400" />
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="text-sm text-white font-medium">Create User</p>
+                                                <p className="text-xs text-slate-500">Register new students or teachers</p>
+                                            </div>
+                                            <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-orange-400 transition-colors" />
+                                        </div>
+                                    </Link>
+                                )}
                                 <Link to={createPageUrl("IntegrityAnalytics")} className="block">
                                     <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition-colors group cursor-pointer">
                                         <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center">
